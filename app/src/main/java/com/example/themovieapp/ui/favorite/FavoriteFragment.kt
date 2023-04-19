@@ -10,12 +10,5 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteFragment: Fragment(R.layout.fragment_favorite) {
-    private val viewModel: MovieViewModel by viewModels<MovieViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.movies.observe(viewLifecycleOwner){
-
-        }
-    }
 }

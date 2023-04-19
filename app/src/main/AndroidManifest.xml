@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--  INTERNET PERMISION  -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--  GLIDE  -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:name=".MovieApplication"
         android:allowBackup="true"
