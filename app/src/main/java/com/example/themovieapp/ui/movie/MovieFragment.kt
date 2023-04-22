@@ -42,12 +42,13 @@ class MovieFragment:Fragment(R.layout.fragment_movie) {
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
+                // loading and error text when no internet
                 progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 rvMovie.isVisible = loadState.source.refresh is LoadState.NotLoading
                 btnRetry.isVisible = loadState.source.refresh is LoadState.Error
                 tvFailed.isVisible = loadState.source.refresh is LoadState.Error
 
-                // data not found
+                // notif when data not found
                 if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1){
                     rvMovie.isVisible = false
                     tvNotFound.isVisible = true
