@@ -9,10 +9,23 @@
         android:id="@+id/nav_movie"
         android:name="com.example.themovieapp.ui.movie.MovieFragment"
         android:label="Movie"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie" >
+        <argument
+            android:name="movie"
+            app:argType="com.example.themovieapp.data.remote.Movie" />
+    </fragment>
     <fragment
         android:id="@+id/nav_favorite"
         android:name="com.example.themovieapp.ui.favorite.FavoriteFragment"
         android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_nav_favorite_to_nav_movie"
+            app:destination="@id/nav_movie" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.example.themovieapp.ui.detail.DetailsFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_details" />
 </navigation>

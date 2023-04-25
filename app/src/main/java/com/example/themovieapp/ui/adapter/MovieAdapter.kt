@@ -2,6 +2,7 @@ package com.example.themovieapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,19 @@ import com.example.themovieapp.R
 import com.example.themovieapp.data.remote.Movie
 import com.example.themovieapp.databinding.ItemMovieBinding
 
-class MovieAdapter: PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(COMPARATOR) {
+class MovieAdapter(private val listener: OnItemClickListener): PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(COMPARATOR) {
     inner class MovieViewHolder(private val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root){
+        init{
+            binding.root.setOnClickListener{
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    val item = getItem(position)
+                    if (item != null){
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
         fun bind(movie: Movie){
             with(binding){
                 Glide.with(itemView).load("${movie.baseUrl}${movie.poster_path}")
@@ -48,5 +60,9 @@ class MovieAdapter: PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(COMPA
                 return oldItem == newItem
             }
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(movie: Movie)
     }
 }

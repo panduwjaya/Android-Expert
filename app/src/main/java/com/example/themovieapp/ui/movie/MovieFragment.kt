@@ -8,15 +8,17 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.themovieapp.R
+import com.example.themovieapp.data.remote.Movie
 import com.example.themovieapp.databinding.FragmentMovieBinding
 import com.example.themovieapp.ui.adapter.MovieAdapter
 import com.example.themovieapp.ui.adapter.MovieLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieFragment:Fragment(R.layout.fragment_movie) {
+class MovieFragment:Fragment(R.layout.fragment_movie), MovieAdapter.OnItemClickListener {
     private val viewModel: MovieViewModel by viewModels<MovieViewModel>()
     private var _binding: FragmentMovieBinding? = null
     private val binding: FragmentMovieBinding get() = _binding!!
@@ -27,7 +29,7 @@ class MovieFragment:Fragment(R.layout.fragment_movie) {
         _binding = FragmentMovieBinding.bind(view)
 
         // adapter
-        val adapter = MovieAdapter()
+        val adapter = MovieAdapter(this)
         binding.apply {
             rvMovie.setHasFixedSize(true)
             rvMovie.adapter = adapter.withLoadStateHeaderAndFooter(
@@ -89,5 +91,10 @@ class MovieFragment:Fragment(R.layout.fragment_movie) {
             }
 
         })
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val action = MovieFragmentDirections.actionNavMovieToNavDetails(movie)
+        findNavController().navigate(action)
     }
 }
